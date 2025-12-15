@@ -14,7 +14,7 @@ namespace AzureApp.Pages
 
         public void OnGet()
         {
-            throw new Exception("Testing Privacy page.");
+            //throw new Exception("Testing Privacy page.");
         }
     }
 
