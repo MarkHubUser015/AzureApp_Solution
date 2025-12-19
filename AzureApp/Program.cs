@@ -1,3 +1,6 @@
+using AzureApp.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace AzureApp
 {
     public class Program
@@ -6,10 +9,14 @@ namespace AzureApp
         {
             var builder = WebApplication.CreateBuilder(args);
 
-           builder.Services.AddApplicationInsightsTelemetry();
-            
+
             // Add services to the container.
+            var connectionstring = builder.Configuration.GetConnectionString("AzureSqlConnection");
+            builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionstring));
+
+
             builder.Services.AddRazorPages();
+            builder.Services.AddApplicationInsightsTelemetry(builder.Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"]);
 
             var app = builder.Build();
 
